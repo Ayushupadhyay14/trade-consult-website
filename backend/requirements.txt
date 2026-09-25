@@ -2,8 +2,7 @@ fastapi==0.141.1
 uvicorn[standard]==0.53.0
 sqlalchemy==2.0.54
 alembic==1.20.0
-# Production Postgres driver (install separately when deploying):
-#   pip install "psycopg[binary]>=3.2.10"   # needs Python wheels for your version
+psycopg[binary]>=3.2.0
 pydantic==2.13.5
 pydantic-settings==2.15.0
 python-jose[cryptography]==3.3.0

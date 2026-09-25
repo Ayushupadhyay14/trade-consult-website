@@ -44,8 +44,22 @@ curl -X POST localhost:8000/api/v1/admin/recommendations \
 curl localhost:8000/api/v1/recommendations/track-record
 ```
 
+## Testing
+```bash
+pytest
+```
+
+## Running with Docker
+
+Run all services (FastAPI backend + PostgreSQL 16 + Redis 7 + Nginx reverse proxy):
+```bash
+docker compose up -d --build
+```
+Or view the full guide in [DEPLOYMENT.md](../DEPLOYMENT.md).
+
 ## Production notes
 - Set `DATABASE_URL` to PostgreSQL, run Alembic migrations instead of `create_all`
 - Set `DEV_RETURN_OTP=false`, configure MSG91 + Razorpay keys
 - Put a Celery beat job on `expire_due_subscriptions`
 - Run uvicorn with multiple workers behind Nginx; move WS broadcast to Redis pub/sub
+
