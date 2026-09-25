@@ -14,7 +14,7 @@ services:
       - "${BACKEND_PORT:-8000}:8000"
     environment:
       - PORT=8000
-      - DATABASE_URL=postgresql+psycopg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-trade_consult}
+      - DATABASE_URL=${DATABASE_URL}
       - REDIS_URL=redis://redis:6379/0
       - PROJECT_NAME=${PROJECT_NAME:-AlphaInsiight API}
       - SECRET_KEY=${SECRET_KEY:-insecure-default-change-in-production}
