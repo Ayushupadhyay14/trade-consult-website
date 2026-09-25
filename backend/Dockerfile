@@ -27,10 +27,9 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 # Copy application source code and entrypoint
 COPY app/ ./app/
-COPY static/ ./static/
 COPY entrypoint.sh .
 
-# Ensure entrypoint is executable and uploads directory has right permissions
+# Create static/uploads directory and set permissions
 RUN chmod +x entrypoint.sh && \
     mkdir -p static/uploads && \
     chown -R appuser:appgroup ${APP_HOME}
