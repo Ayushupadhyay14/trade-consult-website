@@ -1,0 +1,18 @@
+fastapi==0.141.1
+uvicorn[standard]==0.53.0
+sqlalchemy==2.0.54
+alembic==1.20.0
+# Production Postgres driver (install separately when deploying):
+#   pip install "psycopg[binary]>=3.2.10"   # needs Python wheels for your version
+pydantic==2.13.5
+pydantic-settings==2.15.0
+python-jose[cryptography]==3.3.0
+passlib==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.19
+httpx==0.28.1
+redis==5.2.0
+celery==5.4.0
+razorpay==1.4.2
+python-dotenv==1.0.1
+nh3==0.2.18
