@@ -28,6 +28,9 @@ services:
       - WHATSAPP_API_URL=${WHATSAPP_API_URL:-}
       - WHATSAPP_API_TOKEN=${WHATSAPP_API_TOKEN:-}
       - RUN_SEED=${RUN_SEED:-true}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME:-}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY:-}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET:-}
     volumes:
       - backend_uploads:/app/static/uploads
     depends_on:
