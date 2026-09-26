@@ -2,6 +2,9 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
+import cloudinary
+import cloudinary.uploader
+
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -160,9 +163,26 @@ async def admin_upload_image(
             status_code=400, detail=f"Image exceeds {settings.MAX_UPLOAD_MB}MB limit"
         )
 
+    # ── Cloudinary upload (if credentials are configured) ──────────────────
+    if settings.CLOUDINARY_CLOUD_NAME and settings.CLOUDINARY_API_KEY:
+        cloudinary.config(
+            cloud_name=settings.CLOUDINARY_CLOUD_NAME,
+            api_key=settings.CLOUDINARY_API_KEY,
+            api_secret=settings.CLOUDINARY_API_SECRET,
+        )
+        result = cloudinary.uploader.upload(
+            contents,
+            folder="alphainsiight/blog",
+            resource_type="image",
+            use_filename=False,
+            unique_filename=True,
+            overwrite=False,
+        )
+        return {"url": result["secure_url"]}
+
+    # ── Fallback: local disk (dev only) ────────────────────────────────────
     upload_dir = Path(settings.UPLOAD_DIR)
     upload_dir.mkdir(parents=True, exist_ok=True)
     filename = f"{uuid.uuid4().hex}{ext}"
     (upload_dir / filename).write_bytes(contents)
-
     return {"url": f"/static/uploads/{filename}"}
