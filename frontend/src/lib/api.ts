@@ -1,11 +1,16 @@
+// In production (Vercel), leave NEXT_PUBLIC_API_URL unset and Next.js rewrites
+// in next.config.ts will proxy /api/v1/* to the real backend.
+// In local dev, set NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+  process.env.NEXT_PUBLIC_API_URL ?? "/api/v1";
 
 export const WS_URL =
   process.env.NEXT_PUBLIC_WS_URL ?? "ws://localhost:8000/ws/recommendations";
 
 /** Origin only (no /api/v1 suffix) — used to resolve /static/... upload URLs. */
-export const API_ORIGIN = API_URL.replace(/\/api\/v1\/?$/, "");
+export const API_ORIGIN = API_URL.startsWith("/")
+  ? "" // relative: images at /static/... resolve correctly on same origin
+  : API_URL.replace(/\/api\/v1\/?$/, "");
 
 const TOKEN_KEY = "tc_token";
 
