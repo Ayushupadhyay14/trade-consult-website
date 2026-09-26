@@ -15,6 +15,7 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str = "sqlite:///./trade_consult.db"
 
+
     UPLOAD_DIR: str = "static/uploads"
     MAX_UPLOAD_MB: int = 5
 
